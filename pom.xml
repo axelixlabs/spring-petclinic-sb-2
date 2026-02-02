@@ -71,8 +71,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.nucleonforge.axelix</groupId>
-      <artifactId>auto-configuration</artifactId>
+      <groupId>com.axelixlabs.axelix</groupId>
+      <artifactId>axelix-spring-boot-2</artifactId>
       <version>1.0.0-SNAPSHOT</version>
     </dependency>
 
