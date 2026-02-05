@@ -312,8 +312,8 @@
       <url>https://repo.spring.io/milestone</url>
     </repository>
     <repository>
-      <id>axelixlabx-axelix</id>
-      <name>Axelixlabs Axelix</name>
+      <id>nucleon-forge-axelix</id>
+      <name>Nucleon Forge Axelix</name>
       <url>https://${env.NEXUS_HOST_PORT}/repository/axile-monorepo/</url>
       <releases>
         <enabled>true</enabled>
