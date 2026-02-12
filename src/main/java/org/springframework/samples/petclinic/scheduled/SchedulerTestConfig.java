@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.scheduled;
 
 import java.time.Instant;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -105,13 +106,12 @@ public class SchedulerTestConfig implements SchedulingConfigurer {
 	static class CustomTrigger implements Trigger {
 
 		@Override
-		@Nullable
-		public Instant nextExecution(TriggerContext triggerContext) {
-			Instant lastCompletion = triggerContext.lastCompletion();
+		public Date nextExecutionTime(TriggerContext triggerContext) {
+			Date lastCompletion = triggerContext.lastCompletionTime();
 			if (lastCompletion == null) {
-				return Instant.now().plusSeconds(1);
+				return Date.from(Instant.now().plusSeconds(1));
 			}
-			return lastCompletion.plusSeconds(2);
+			return Date.from(lastCompletion.toInstant().plusSeconds(2));
 		}
 
 	}
