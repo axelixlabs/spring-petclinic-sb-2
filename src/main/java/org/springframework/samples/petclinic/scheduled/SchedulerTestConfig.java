@@ -8,13 +8,17 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.Nullable;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.TriggerContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
 @Configuration
@@ -24,6 +28,23 @@ public class SchedulerTestConfig implements SchedulingConfigurer {
 	private static final Logger log = LoggerFactory.getLogger(SchedulerTestConfig.class);
 
 	private final ReentrantLock reentrantLock = new ReentrantLock(true);
+
+	// IMPORTANT!
+	// Fix for Spring Boot 2. this class `implement SchedulingConfigurer`.
+	// see TaskSchedulingAutoConfiguration, method taskScheduler(TaskSchedulerBuilder
+	// builder),
+	// please note @ConditionalOnMissingBean(SchedulingConfigurer.class ...).
+	@Bean
+	@ConditionalOnMissingBean(TaskScheduler.class)
+	public ThreadPoolTaskScheduler taskScheduler() {
+		ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+		scheduler.setPoolSize(3);
+		scheduler.setThreadNamePrefix("axelix-task-scheduler-");
+		scheduler.setWaitForTasksToCompleteOnShutdown(true);
+		scheduler.setAwaitTerminationSeconds(5);
+		scheduler.initialize();
+		return scheduler;
+	}
 
 	@Scheduled(fixedDelay = 10, timeUnit = TimeUnit.SECONDS)
 	public void reEntrantLockTask() {

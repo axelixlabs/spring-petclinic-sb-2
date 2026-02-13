@@ -80,4 +80,4 @@ jobs:
           touch ~/.kube/config
           echo "$KUBE_CONFIG_BASE64" | base64 --decode > ~/.kube/config
           chmod 600 ~/.kube/config
-          helm upgrade --install petclinic . --set image.ref=$CR_URL/$CR_REPOSITORY/$SPRING_PET_CLINIC -f values.yaml
+          helm upgrade --install petclinic-sb-2 . --set image.ref=$CR_URL/$CR_REPOSITORY/$SPRING_PET_CLINIC -f values.yaml
