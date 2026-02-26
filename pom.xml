@@ -325,7 +325,7 @@
     <repository>
       <id>nucleon-forge-axelix</id>
       <name>Nucleon Forge Axelix</name>
-      <url>https://158.160.69.73:8443/repository/axile-monorepo/</url>
+      <url>https://${env.NEXUS_HOST_PORT}/repository/axile-monorepo/</url>
       <releases>
         <enabled>true</enabled>
       </releases>
