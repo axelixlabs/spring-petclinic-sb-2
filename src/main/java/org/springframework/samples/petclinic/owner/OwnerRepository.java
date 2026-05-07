@@ -49,6 +49,7 @@ public interface OwnerRepository extends JpaRepository<Owner, Integer> {
 	 * found)
 	 */
 	@Cacheable("owners")
+	@Transactional(propagation = Propagation.REQUIRED)
 	Page<Owner> findByLastNameStartingWith(String lastName, Pageable pageable);
 
 	/**
