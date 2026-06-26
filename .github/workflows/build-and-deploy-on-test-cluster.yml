@@ -37,7 +37,6 @@ jobs:
         with:
           distribution: 'liberica'
           java-version: '17'
-          cache: maven
 
       - name: Download and trust Nexus SSL certificate
         run: |
